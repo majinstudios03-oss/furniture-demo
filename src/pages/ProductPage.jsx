@@ -4,6 +4,7 @@ import useProductStore from '../store/useProductStore';
 import useCartStore from '../store/useCartStore';
 import useWishlistStore from '../store/useWishlistStore';
 import { Star, Truck, ShieldCheck, Heart, Minus, Plus, ChevronRight, Check } from 'lucide-react';
+import WhatsAppIcon from '../components/WhatsAppIcon';
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -194,6 +195,17 @@ const ProductPage = () => {
                 Buy Now
               </button>
             </div>
+
+            <a
+              href={`https://wa.me/919491554114?text=${encodeURIComponent(
+                `Hi, I'm interested in this item "${product.name}"${selectedColor ? ` (Color: ${selectedColor})` : ''} priced at ₹${product.price.toLocaleString('en-IN')} and would like to talk to you.`
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full mt-4 bg-[#25D366] hover:bg-[#20ba59] text-white py-3.5 px-6 rounded-md font-bold transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2.5 text-base cursor-pointer"
+            >
+              <WhatsAppIcon size={22} /> Inquire / Talk on WhatsApp
+            </a>
           </div>
 
           {/* Trust Features */}

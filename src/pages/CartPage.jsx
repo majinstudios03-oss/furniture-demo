@@ -1,11 +1,21 @@
 import { Link, useNavigate } from 'react-router-dom';
 import useCartStore from '../store/useCartStore';
 import { Trash2, Minus, Plus, ShoppingBag, ArrowRight, ShieldCheck } from 'lucide-react';
+import WhatsAppIcon from '../components/WhatsAppIcon';
 
 const CartPage = () => {
   const { cartItems, removeFromCart, updateQuantity, getCartTotal } = useCartStore();
   const navigate = useNavigate();
   const { itemsPrice, shippingPrice, taxPrice, totalPrice } = getCartTotal();
+
+  const handleWhatsAppOrder = () => {
+    const itemsList = cartItems
+      .map((item, idx) => `${idx + 1}. ${item.name}${item.color ? ` (${item.color})` : ''} - Qty: ${item.qty} - ₹${(item.price * item.qty).toLocaleString('en-IN')}`)
+      .join('\n');
+    const msg = `Hi MAJIN FURNITURES, I'm interested in ordering these items from my cart and would like to talk to you:\n\n${itemsList}\n\n*Total Amount:* ₹${totalPrice.toLocaleString('en-IN')}\n\nPlease confirm availability and delivery details!`;
+    const url = `https://wa.me/919491554114?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+  };
 
   if (cartItems.length === 0) {
     return (
@@ -132,9 +142,16 @@ const CartPage = () => {
 
             <button 
               onClick={() => navigate('/checkout')}
-              className="w-full bg-brand-walnut hover:bg-brand-walnut/90 text-white py-4 rounded-md font-bold flex items-center justify-center gap-2 transition-colors shadow-lg"
+              className="w-full bg-brand-walnut hover:bg-brand-walnut/90 text-white py-4 rounded-md font-bold flex items-center justify-center gap-2 transition-colors shadow-lg cursor-pointer"
             >
               Proceed to Checkout <ArrowRight size={18} />
+            </button>
+
+            <button 
+              onClick={handleWhatsAppOrder}
+              className="w-full mt-3 bg-[#25D366] hover:bg-[#20ba59] text-white py-3.5 rounded-md font-bold flex items-center justify-center gap-2 transition-all shadow-md hover:shadow-lg cursor-pointer"
+            >
+              <WhatsAppIcon size={20} /> Order Cart via WhatsApp
             </button>
             
             <div className="mt-6 space-y-3">

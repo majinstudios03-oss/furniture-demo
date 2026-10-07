@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Heart, Star, ShoppingCart } from 'lucide-react';
+import WhatsAppIcon from './WhatsAppIcon';
 import useCartStore from '../store/useCartStore';
 import useWishlistStore from '../store/useWishlistStore';
 
@@ -61,12 +62,25 @@ const ProductCard = ({ product }) => {
               <div className="text-xs text-gray-400 line-through">₹{product.originalPrice.toLocaleString('en-IN')}</div>
             )}
           </div>
-          <button 
-            onClick={(e) => { e.preventDefault(); addToCart(product); }}
-            className="w-10 h-10 rounded-full bg-brand-ivory flex items-center justify-center text-brand-walnut hover:bg-brand-terracotta hover:text-white transition-colors"
-          >
-            <ShoppingCart size={18} />
-          </button>
+          <div className="flex items-center gap-1.5">
+            <a 
+              href={`https://wa.me/919491554114?text=${encodeURIComponent(`Hi, I'm interested in this item "${product.name}" (Price: ₹${product.price.toLocaleString('en-IN')}) and would like to talk to you.`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              title="Inquire on WhatsApp"
+              className="w-9 h-9 rounded-full bg-green-50 text-[#25D366] hover:bg-[#25D366] hover:text-white flex items-center justify-center transition-colors shadow-xs"
+            >
+              <WhatsAppIcon size={17} />
+            </a>
+            <button 
+              onClick={(e) => { e.preventDefault(); addToCart(product); }}
+              title="Add to Cart"
+              className="w-9 h-9 rounded-full bg-brand-ivory flex items-center justify-center text-brand-walnut hover:bg-brand-terracotta hover:text-white transition-colors"
+            >
+              <ShoppingCart size={17} />
+            </button>
+          </div>
         </div>
       </div>
     </div>

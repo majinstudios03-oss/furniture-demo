@@ -22,6 +22,7 @@ import ReturnsPolicyPage from './pages/policies/ReturnsPolicyPage';
 import PrivacyPolicyPage from './pages/policies/PrivacyPolicyPage';
 import TermsPage from './pages/policies/TermsPage';
 import TrackOrderPage from './pages/TrackOrderPage';
+import WhatsAppFloatingButton from './components/WhatsAppFloatingButton';
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -36,6 +37,7 @@ const Layout = ({ children }) => {
       <Header />
       <main className="flex-grow">{children}</main>
       <Footer />
+      <WhatsAppFloatingButton />
     </div>
   );
 };

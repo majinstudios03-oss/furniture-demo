@@ -3,6 +3,7 @@ import { ArrowRight, Star, ShieldCheck, Truck, Clock, Headphones } from 'lucide-
 import { useEffect } from 'react';
 import useProductStore from '../store/useProductStore';
 import ProductCard from '../components/ProductCard';
+import WhatsAppIcon from '../components/WhatsAppIcon';
 
 const HomePage = () => {
   const { trendingProducts, fetchTrendingProducts, loading } = useProductStore();
@@ -36,9 +37,14 @@ const HomePage = () => {
               <Link to="/shop" className="bg-brand-terracotta hover:bg-brand-terracotta/90 text-white px-8 py-4 rounded-md font-medium transition-colors text-center shadow-lg shadow-brand-terracotta/20">
                 Shop Now
               </Link>
-              <Link to="/collections" className="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white border border-white/30 px-8 py-4 rounded-md font-medium transition-colors text-center flex items-center justify-center gap-2">
-                Explore Collections <ArrowRight size={18} />
-              </Link>
+              <a
+                href="https://wa.me/919491554114?text=Hi%20MAJIN%20FURNITURES%2C%20I'm%20interested%20in%20your%20furniture%20collections%20and%20would%20like%20to%20talk%20to%20you."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-[#25D366] hover:bg-[#20ba59] text-white px-6 py-4 rounded-md font-medium transition-colors text-center flex items-center justify-center gap-2 shadow-lg"
+              >
+                <WhatsAppIcon size={20} /> Chat on WhatsApp
+              </a>
             </div>
           </div>
         </div>
