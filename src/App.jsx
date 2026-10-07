@@ -23,6 +23,7 @@ import PrivacyPolicyPage from './pages/policies/PrivacyPolicyPage';
 import TermsPage from './pages/policies/TermsPage';
 import TrackOrderPage from './pages/TrackOrderPage';
 import WhatsAppFloatingButton from './components/WhatsAppFloatingButton';
+import ScrollToTop from './components/ScrollToTop';
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -45,6 +46,7 @@ const Layout = ({ children }) => {
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />

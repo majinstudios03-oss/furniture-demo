@@ -17,6 +17,7 @@ const ProductPage = () => {
   const [activeImage, setActiveImage] = useState(0);
 
   useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     fetchProductById(id);
   }, [id, fetchProductById]);
 
