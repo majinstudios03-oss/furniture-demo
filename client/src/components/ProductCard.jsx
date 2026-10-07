@@ -1,0 +1,72 @@
+import { Link } from 'react-router-dom';
+import { Heart, Star, ShoppingCart } from 'lucide-react';
+import useCartStore from '../store/useCartStore';
+import useWishlistStore from '../store/useWishlistStore';
+
+const ProductCard = ({ product }) => {
+  const { addToCart } = useCartStore();
+  const { toggleWishlist, isInWishlist } = useWishlistStore();
+  const isWishlisted = isInWishlist(product._id);
+  return (
+    <div className="bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 group flex flex-col h-full">
+      <div className="relative aspect-square overflow-hidden bg-gray-50">
+        {/* Discount Badge */}
+        {product.discount > 0 && (
+          <div className="absolute top-3 left-3 bg-brand-terracotta text-white text-xs font-bold px-2 py-1 rounded z-10">
+            {product.discount}% OFF
+          </div>
+        )}
+        
+        {/* Wishlist Button */}
+        <button 
+          onClick={(e) => { e.preventDefault(); toggleWishlist(product); }}
+          className="absolute top-3 right-3 w-8 h-8 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-500 hover:text-brand-terracotta hover:bg-white z-10 transition-colors"
+        >
+          <Heart size={16} className={isWishlisted ? "fill-brand-terracotta text-brand-terracotta" : ""} />
+        </button>
+
+        {/* Product Image */}
+        <Link to={`/product/${product._id}`} className="block w-full h-full">
+          <img 
+            src={product.image} 
+            alt={product.name} 
+            className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+          />
+        </Link>
+      </div>
+
+      <div className="p-4 flex flex-col flex-grow">
+        <div className="flex justify-between items-start mb-2">
+          <Link to={`/product/${product._id}`} className="hover:text-brand-terracotta transition-colors">
+            <h3 className="font-serif font-medium text-brand-walnut line-clamp-1">{product.name}</h3>
+          </Link>
+        </div>
+
+        <div className="flex items-center gap-1 mb-3 text-sm">
+          <div className="flex text-yellow-400">
+            <Star size={14} fill="currentColor" />
+          </div>
+          <span className="font-medium">{product.rating}</span>
+          <span className="text-gray-400">({product.numReviews})</span>
+        </div>
+
+        <div className="mt-auto pt-4 flex items-center justify-between border-t border-gray-100">
+          <div>
+            <div className="font-bold text-lg text-brand-walnut">₹{product.price.toLocaleString('en-IN')}</div>
+            {product.originalPrice > product.price && (
+              <div className="text-xs text-gray-400 line-through">₹{product.originalPrice.toLocaleString('en-IN')}</div>
+            )}
+          </div>
+          <button 
+            onClick={(e) => { e.preventDefault(); addToCart(product); }}
+            className="w-10 h-10 rounded-full bg-brand-ivory flex items-center justify-center text-brand-walnut hover:bg-brand-terracotta hover:text-white transition-colors"
+          >
+            <ShoppingCart size={18} />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ProductCard;
