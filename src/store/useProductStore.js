@@ -1,6 +1,15 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 import { mockProducts } from '../data/mockProducts';
+
+// Clear any stale local storage from prior persists
+if (typeof window !== 'undefined') {
+  try {
+    localStorage.removeItem('majin-product-catalog');
+    localStorage.removeItem('majin-product-catalog-v2');
+  } catch (e) {
+    // Ignore
+  }
+}
 
 const normalize = (str) => (str || '').toLowerCase().trim();
 
@@ -41,145 +50,115 @@ const matchKeyword = (product, keyword) => {
   );
 };
 
-const useProductStore = create(
-  persist(
-    (set, get) => ({
+const useProductStore = create((set, get) => ({
+  catalog: mockProducts,
+  products: mockProducts,
+  trendingProducts: mockProducts.filter((p) => p.isTrending).slice(0, 8),
+  product: null,
+  loading: false,
+  error: null,
+
+  fetchTrendingProducts: async () => {
+    set({ loading: true, error: null });
+    try {
+      const trending = get().catalog.filter((p) => p.isTrending).slice(0, 8);
+      set({
+        trendingProducts: trending.length > 0 ? trending : get().catalog.slice(0, 8),
+        loading: false,
+      });
+    } catch (error) {
+      set({ error: error.message, loading: false });
+    }
+  },
+
+  fetchProducts: async (keyword = '', category = '', sort = '') => {
+    set({ loading: true, error: null });
+    try {
+      let list = [...get().catalog];
+
+      if (keyword) {
+        list = list.filter((p) => matchKeyword(p, keyword));
+      }
+
+      if (category) {
+        list = list.filter((p) => matchCategory(p, category));
+      }
+
+      // Sort
+      if (sort === 'price_asc') {
+        list.sort((a, b) => a.price - b.price);
+      } else if (sort === 'price_desc') {
+        list.sort((a, b) => b.price - a.price);
+      } else if (sort === 'rating') {
+        list.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+      } else if (sort === 'reviews') {
+        list.sort((a, b) => (b.numReviews || 0) - (a.numReviews || 0));
+      }
+
+      set({ products: list, loading: false });
+    } catch (error) {
+      set({ error: error.message, loading: false });
+    }
+  },
+
+  fetchProductById: async (id) => {
+    set({ loading: true, error: null });
+    try {
+      const found = get().catalog.find((p) => String(p._id) === String(id));
+      if (!found) {
+        set({ product: null, error: 'Product not found', loading: false });
+      } else {
+        set({ product: found, loading: false });
+      }
+    } catch (error) {
+      set({ error: error.message, loading: false });
+    }
+  },
+
+  addProduct: (newProduct) => {
+    const id = `prod-${Date.now()}`;
+    const item = {
+      _id: id,
+      rating: 5.0,
+      numReviews: 1,
+      isTrending: false,
+      images: newProduct.images?.length ? newProduct.images : [newProduct.image],
+      ...newProduct,
+    };
+    const updatedCatalog = [item, ...get().catalog];
+    set({
+      catalog: updatedCatalog,
+      products: updatedCatalog,
+    });
+    return id;
+  },
+
+  updateProduct: (id, updateData) => {
+    const updatedCatalog = get().catalog.map((p) =>
+      p._id === id ? { ...p, ...updateData } : p
+    );
+    set({
+      catalog: updatedCatalog,
+      products: updatedCatalog,
+      product: get().product?._id === id ? { ...get().product, ...updateData } : get().product,
+    });
+  },
+
+  deleteProduct: (id) => {
+    const updatedCatalog = get().catalog.filter((p) => p._id !== id);
+    set({
+      catalog: updatedCatalog,
+      products: get().products.filter((p) => p._id !== id),
+    });
+  },
+
+  resetCatalog: () => {
+    set({
       catalog: mockProducts,
       products: mockProducts,
       trendingProducts: mockProducts.filter((p) => p.isTrending).slice(0, 8),
-      product: null,
-      loading: false,
-      error: null,
-
-      fetchTrendingProducts: async () => {
-        set({ loading: true, error: null });
-        try {
-          const trending = get().catalog.filter((p) => p.isTrending).slice(0, 8);
-          set({
-            trendingProducts: trending.length > 0 ? trending : get().catalog.slice(0, 8),
-            loading: false,
-          });
-        } catch (error) {
-          set({ error: error.message, loading: false });
-        }
-      },
-
-      fetchProducts: async (keyword = '', category = '', sort = '') => {
-        set({ loading: true, error: null });
-        try {
-          let list = [...get().catalog];
-
-          if (keyword) {
-            list = list.filter((p) => matchKeyword(p, keyword));
-          }
-
-          if (category) {
-            list = list.filter((p) => matchCategory(p, category));
-          }
-
-          // Sort
-          if (sort === 'price_asc') {
-            list.sort((a, b) => a.price - b.price);
-          } else if (sort === 'price_desc') {
-            list.sort((a, b) => b.price - a.price);
-          } else if (sort === 'rating') {
-            list.sort((a, b) => (b.rating || 0) - (a.rating || 0));
-          } else if (sort === 'reviews') {
-            list.sort((a, b) => (b.numReviews || 0) - (a.numReviews || 0));
-          }
-
-          set({ products: list, loading: false });
-        } catch (error) {
-          set({ error: error.message, loading: false });
-        }
-      },
-
-      fetchProductById: async (id) => {
-        set({ loading: true, error: null });
-        try {
-          const found = get().catalog.find((p) => String(p._id) === String(id));
-          if (!found) {
-            set({ product: null, error: 'Product not found', loading: false });
-          } else {
-            set({ product: found, loading: false });
-          }
-        } catch (error) {
-          set({ error: error.message, loading: false });
-        }
-      },
-
-      addProduct: (newProduct) => {
-        const id = `prod-${Date.now()}`;
-        const item = {
-          _id: id,
-          rating: 5.0,
-          numReviews: 1,
-          isTrending: false,
-          images: newProduct.images?.length ? newProduct.images : [newProduct.image],
-          ...newProduct,
-        };
-        const updatedCatalog = [item, ...get().catalog];
-        set({
-          catalog: updatedCatalog,
-          products: updatedCatalog,
-        });
-        return id;
-      },
-
-      updateProduct: (id, updateData) => {
-        const updatedCatalog = get().catalog.map((p) =>
-          p._id === id ? { ...p, ...updateData } : p
-        );
-        set({
-          catalog: updatedCatalog,
-          products: updatedCatalog,
-          product: get().product?._id === id ? { ...get().product, ...updateData } : get().product,
-        });
-      },
-
-      deleteProduct: (id) => {
-        const updatedCatalog = get().catalog.filter((p) => p._id !== id);
-        set({
-          catalog: updatedCatalog,
-          products: get().products.filter((p) => p._id !== id),
-        });
-      },
-
-      resetCatalog: () => {
-        set({
-          catalog: mockProducts,
-          products: mockProducts,
-          trendingProducts: mockProducts.filter((p) => p.isTrending).slice(0, 8),
-        });
-      },
-    }),
-    {
-      name: 'majin-product-catalog-v2',
-      partialize: (state) => ({ catalog: state.catalog }),
-      onRehydrateStorage: () => (state) => {
-        if (state && Array.isArray(state.catalog)) {
-          // Clear any legacy broken Unsplash URLs that might be cached
-          const healed = state.catalog.map((p) => {
-            const master = mockProducts.find((m) => m._id === p._id);
-            if (!master) return p;
-            const isBroken = !p.image || p.image.includes('1617806118233') || p.image.includes('1600607688969') || p.image.includes('1536644265775') || p.image.includes('1584100936595');
-            return isBroken ? { ...p, image: master.image, images: master.images } : p;
-          });
-          state.catalog = healed;
-          state.products = healed;
-        }
-      },
-    }
-  )
-);
-
-// Clean up legacy v1 storage key if present
-if (typeof window !== 'undefined') {
-  try {
-    localStorage.removeItem('majin-product-catalog');
-  } catch (e) {
-    // Ignore
-  }
-}
+    });
+  },
+}));
 
 export default useProductStore;
