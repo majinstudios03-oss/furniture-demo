@@ -77,6 +77,9 @@ const ProductPage = () => {
             <img 
               src={images[activeImage]} 
               alt={product.name} 
+              onError={(e) => {
+                e.currentTarget.src = 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80';
+              }}
               className="w-full h-full object-cover object-center"
             />
           </div>
@@ -89,7 +92,14 @@ const ProductPage = () => {
                   onClick={() => setActiveImage(idx)}
                   className={`w-20 h-20 rounded-lg overflow-hidden border-2 flex-shrink-0 transition-colors ${activeImage === idx ? 'border-brand-terracotta' : 'border-transparent opacity-70 hover:opacity-100'}`}
                 >
-                  <img src={img} alt="" className="w-full h-full object-cover" />
+                  <img 
+                    src={img} 
+                    alt="" 
+                    onError={(e) => {
+                      e.currentTarget.src = 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80';
+                    }}
+                    className="w-full h-full object-cover" 
+                  />
                 </button>
               ))}
             </div>

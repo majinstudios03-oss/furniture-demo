@@ -55,16 +55,24 @@ const HomePage = () => {
             {[
               { name: 'Sofas', img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=300&q=80' },
               { name: 'Beds', img: 'https://images.unsplash.com/photo-1505693314120-0d443867891c?auto=format&fit=crop&w=300&q=80' },
-              { name: 'Dining Tables', img: 'https://images.unsplash.com/photo-1617806118233-18e1c094414f?auto=format&fit=crop&w=300&q=80' },
+              { name: 'Dining Tables', img: 'https://images.unsplash.com/photo-1615066390971-03e4e1c36ddf?auto=format&fit=crop&w=300&q=80' },
               { name: 'Chairs', img: 'https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1?auto=format&fit=crop&w=300&q=80' },
               { name: 'Wardrobes', img: 'https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?auto=format&fit=crop&w=300&q=80' },
               { name: 'TV Units', img: 'https://images.unsplash.com/photo-1600607686527-6fb886090705?auto=format&fit=crop&w=300&q=80' },
               { name: 'Office', img: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=300&q=80' },
-              { name: 'Outdoor', img: 'https://images.unsplash.com/photo-1600607688969-a5bfcd64bd0b?auto=format&fit=crop&w=300&q=80' }
+              { name: 'Outdoor', img: 'https://images.unsplash.com/photo-1599696848652-f0ff23bc911f?auto=format&fit=crop&w=300&q=80' }
             ].map((cat, idx) => (
               <Link key={idx} to={`/category/${cat.name.toLowerCase().replace(' ', '-')}`} className="group flex flex-col items-center gap-4">
-                <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-white shadow-md group-hover:border-brand-terracotta transition-colors duration-300">
-                  <img src={cat.img} alt={cat.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-white shadow-md group-hover:border-brand-terracotta transition-colors duration-300 bg-brand-beige/30">
+                  <img 
+                    src={cat.img} 
+                    alt={cat.name} 
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=300&q=80';
+                    }}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                  />
                 </div>
                 <span className="font-medium text-brand-walnut text-center">{cat.name}</span>
               </Link>

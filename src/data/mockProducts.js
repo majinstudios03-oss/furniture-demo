@@ -249,9 +249,9 @@ export const mockProducts = [
   {
     "_id": "prod-010",
     "name": "Kavya 6-Seater Dining Table",
-    "image": "https://images.unsplash.com/photo-1617806118233-18e1c094414f?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1615066390971-03e4e1c36ddf?auto=format&fit=crop&w=800&q=80",
     "images": [
-      "https://images.unsplash.com/photo-1617806118233-18e1c094414f?auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1615066390971-03e4e1c36ddf?auto=format&fit=crop&w=800&q=80"
     ],
     "description": "Host memorable family dinners with the Kavya 6-Seater Dining Table. Featuring a robust solid wood tabletop with elegant chamfered edges, supported by sturdy metal A-frame legs for an industrial-chic aesthetic.",
     "brand": "MAJIN FURNITURES",
@@ -464,9 +464,9 @@ export const mockProducts = [
   {
     "_id": "prod-018",
     "name": "Terra Patio Sofa",
-    "image": "https://images.unsplash.com/photo-1600607688969-a5bfcd64bd0b?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1599696848652-f0ff23bc911f?auto=format&fit=crop&w=800&q=80",
     "images": [
-      "https://images.unsplash.com/photo-1600607688969-a5bfcd64bd0b?auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1599696848652-f0ff23bc911f?auto=format&fit=crop&w=800&q=80"
     ],
     "description": "Transform your balcony or garden into a resort. The Terra Patio Sofa is crafted from all-weather PE wicker over a rust-resistant aluminum frame. Includes water-resistant UV-protected cushions.",
     "brand": "MAJIN FURNITURES",
@@ -597,9 +597,9 @@ export const mockProducts = [
   {
     "_id": "prod-023",
     "name": "Arjun Solid Wood Bed",
-    "image": "https://images.unsplash.com/photo-1536644265775-a0d0a53b6f27?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
     "images": [
-      "https://images.unsplash.com/photo-1536644265775-a0d0a53b6f27?auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80"
     ],
     "description": "A tribute to classic Indian woodwork. The Arjun Bed is carved from solid Mango wood, displaying a rich, deep finish and sturdy, robust pillars. A true heirloom piece for your bedroom.",
     "brand": "MAJIN FURNITURES",
@@ -938,9 +938,9 @@ export const mockProducts = [
   {
     "_id": "prod-036",
     "name": "Linen Throw Pillow Set",
-    "image": "https://images.unsplash.com/photo-1584100936595-c0654b35a113?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80",
     "images": [
-      "https://images.unsplash.com/photo-1584100936595-c0654b35a113?auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80"
     ],
     "description": "Refresh your sofa instantly. This set of 2 premium linen throw pillows adds soft texture and comfort. Includes plush polyfill inserts.",
     "brand": "MAJIN FURNITURES",

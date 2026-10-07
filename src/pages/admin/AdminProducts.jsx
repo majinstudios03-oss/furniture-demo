@@ -141,6 +141,10 @@ const AdminProducts = () => {
                       <img
                         src={product.image}
                         alt={product.name}
+                        onError={(e) => {
+                          e.currentTarget.onerror = null;
+                          e.currentTarget.src = 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80';
+                        }}
                         className="w-12 h-12 rounded-lg object-cover bg-gray-100 border border-gray-200"
                       />
                       <div className="max-w-xs">

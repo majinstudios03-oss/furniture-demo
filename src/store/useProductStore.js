@@ -154,10 +154,32 @@ const useProductStore = create(
       },
     }),
     {
-      name: 'majin-product-catalog',
+      name: 'majin-product-catalog-v2',
       partialize: (state) => ({ catalog: state.catalog }),
+      onRehydrateStorage: () => (state) => {
+        if (state && Array.isArray(state.catalog)) {
+          // Clear any legacy broken Unsplash URLs that might be cached
+          const healed = state.catalog.map((p) => {
+            const master = mockProducts.find((m) => m._id === p._id);
+            if (!master) return p;
+            const isBroken = !p.image || p.image.includes('1617806118233') || p.image.includes('1600607688969') || p.image.includes('1536644265775') || p.image.includes('1584100936595');
+            return isBroken ? { ...p, image: master.image, images: master.images } : p;
+          });
+          state.catalog = healed;
+          state.products = healed;
+        }
+      },
     }
   )
 );
+
+// Clean up legacy v1 storage key if present
+if (typeof window !== 'undefined') {
+  try {
+    localStorage.removeItem('majin-product-catalog');
+  } catch (e) {
+    // Ignore
+  }
+}
 
 export default useProductStore;

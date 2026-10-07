@@ -43,7 +43,14 @@ const CartPage = () => {
               {cartItems.map((item) => (
                 <div key={item.product} className="grid grid-cols-1 md:grid-cols-12 gap-4 p-4 md:p-6 items-center">
                   <div className="col-span-1 md:col-span-6 flex gap-4">
-                    <img src={item.image} alt={item.name} className="w-24 h-24 object-cover rounded-md" />
+                    <img 
+                      src={item.image} 
+                      alt={item.name} 
+                      onError={(e) => {
+                        e.currentTarget.src = 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80';
+                      }}
+                      className="w-24 h-24 object-cover rounded-md" 
+                    />
                     <div className="flex flex-col justify-center">
                       <Link to={`/product/${item.product}`} className="font-serif font-semibold text-brand-walnut hover:text-brand-terracotta transition-colors text-lg mb-1">
                         {item.name}
