@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
@@ -15,13 +15,13 @@ import AboutUsPage from './pages/AboutUsPage';
 import ContactPage from './pages/ContactPage';
 import WishlistPage from './pages/WishlistPage';
 import OffersPage from './pages/OffersPage';
+import LoginPage from './pages/LoginPage';
 import HelpCenterPage from './pages/policies/HelpCenterPage';
 import ShippingPolicyPage from './pages/policies/ShippingPolicyPage';
 import ReturnsPolicyPage from './pages/policies/ReturnsPolicyPage';
 import PrivacyPolicyPage from './pages/policies/PrivacyPolicyPage';
 import TermsPage from './pages/policies/TermsPage';
 import TrackOrderPage from './pages/TrackOrderPage';
-import { useLocation } from 'react-router-dom';
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -47,6 +47,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/shop" element={<ShopPage />} />
+          <Route path="/collections" element={<ShopPage />} />
           <Route path="/category/:categoryName" element={<ShopPage />} />
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/cart" element={<CartPage />} />
@@ -54,6 +55,7 @@ function App() {
           <Route path="/order-success" element={<OrderSuccessPage />} />
           <Route path="/wishlist" element={<WishlistPage />} />
           <Route path="/offers" element={<OffersPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/about" element={<AboutUsPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/help" element={<HelpCenterPage />} />
@@ -62,10 +64,17 @@ function App() {
           <Route path="/privacy" element={<PrivacyPolicyPage />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/track" element={<TrackOrderPage />} />
+          
+          {/* Admin Routes */}
+          <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/products" element={<AdminProducts />} />
           <Route path="/admin/orders" element={<AdminOrders />} />
           <Route path="/admin/customers" element={<AdminCustomers />} />
+          <Route path="/admin/settings" element={<AdminDashboard />} />
+
+          {/* Fallback */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Layout>
     </Router>

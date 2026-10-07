@@ -1,7 +1,7 @@
 {
-  "name": "admin",
+  "name": "furniture-demo",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -16,7 +16,6 @@
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-router-dom": "^7.18.4",
-    "recharts": "^3.10.1",
     "zustand": "^5.0.15"
   },
   "devDependencies": {
