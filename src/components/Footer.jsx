@@ -25,7 +25,7 @@ const Footer = () => {
               <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-terracotta transition-colors text-xs font-bold">
                 YT
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-terracotta transition-colors">
+              <a href="https://wa.me/919491554114" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-terracotta transition-colors">
                 <MessageCircle size={20} />
               </a>
             </div>
@@ -61,7 +61,7 @@ const Footer = () => {
             <ul className="space-y-4 text-sm opacity-90">
               <li>
                 <p className="font-medium text-white">Call Us:</p>
-                <p>1800-123-4567 (Mon-Sat, 9AM-8PM)</p>
+                <p>+91 94915 54114 (Mon-Sat, 9AM-8PM)</p>
               </li>
               <li>
                 <p className="font-medium text-white">Email:</p>

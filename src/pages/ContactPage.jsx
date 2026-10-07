@@ -41,7 +41,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <p className="font-bold text-lg mb-1">Phone</p>
-                    <p className="text-white/80">+91 90000 00000</p>
+                    <p className="text-white/80">+91 94915 54114</p>
                     <p className="text-sm text-white/60 mt-1">Mon-Sat: 9:00 AM - 7:00 PM</p>
                   </div>
                 </div>

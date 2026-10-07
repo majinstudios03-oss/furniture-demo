@@ -87,8 +87,8 @@ const HelpCenterPage = () => {
         <div className="text-center">
           <h2 className="font-serif text-2xl font-bold text-brand-walnut mb-6">Still need help?</h2>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="tel:+919000000000" className="flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow-sm border border-gray-100 text-brand-walnut hover:border-brand-terracotta transition-colors">
-              <Phone size={18} className="text-brand-terracotta" /> +91 90000 00000
+            <a href="tel:+919491554114" className="flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow-sm border border-gray-100 text-brand-walnut hover:border-brand-terracotta transition-colors">
+              <Phone size={18} className="text-brand-terracotta" /> +91 94915 54114
             </a>
             <a href="mailto:support@majinfurnitures.example" className="flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow-sm border border-gray-100 text-brand-walnut hover:border-brand-terracotta transition-colors">
               <Mail size={18} className="text-brand-terracotta" /> Email Support
